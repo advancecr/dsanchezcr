@@ -1,9 +1,9 @@
 name: Build and deploy
 
 env:
-  AZURE_WEBAPP_NAME: advancecr-webapp   # set this to the name of your Azure Web App
+  AZURE_WEBAPP_NAME: advancecrdevops   # set this to the name of your Azure Web App
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '8.0.100-preview.4.23260.5'                 # set this to the .NET Core version to use
+  DOTNET_VERSION: '7.0.x'                 # set this to the .NET Core version to use
 
 on:
   push:
@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: [Self-hosted, DavidPC]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -67,3 +67,4 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          slot-name: 'dev'
